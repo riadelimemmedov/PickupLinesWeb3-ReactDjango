@@ -1,0 +1,45 @@
+{
+  "name": "vite-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "cleantruffle": "truffle networks --clean",
+    "test": "mocha",
+    "compile": "npx hardhat compile",
+    "runharthat": "npx hardhat run scripts/run.js",
+    "deployharthat": "npx hardhat run scripts/deploy.js --network localhost"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.3",
+    "@mui/icons-material": "^5.11.11",
+    "@mui/material": "^5.11.13",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.1",
+    "@nomiclabs/hardhat-ethers": "^2.2.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@truffle/hdwallet-provider": "^2.1.9",
+    "dotenv": "^16.0.3",
+    "ethereum-waffle": "^4.0.10",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.12.6",
+    "mocha": "^10.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-paginate": "^8.1.4",
+    "react-router-dom": "^6.9.0",
+    "react-toastify": "^9.1.1",
+    "web3": "^1.8.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
+    "vite": "^4.1.0"
+  }
+}
