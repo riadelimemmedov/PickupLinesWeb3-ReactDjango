@@ -47,6 +47,7 @@ media
 
 # C extensions
 *.so
+note.txt
 
 # Distribution / packaging
 .Python

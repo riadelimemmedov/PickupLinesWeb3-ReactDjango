@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         textTransform: 'capitalize'
     },
     navbar: {
-        backgroundColor: '#7286D3'
+        backgroundColor: '#7286D3',
     },
     cardGrid: {
         paddingTop: '20px 0px'
@@ -64,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#CCE5FF',
         borderRadius: '5px',
         marginTop:'60px',
-
     },
     cartMessageTitle : {
         fontWeight: 'bold',
@@ -72,6 +71,27 @@ const useStyles = makeStyles((theme) => ({
     },
     cartMessageText:{
         textAlign: 'center',
+    },
+
+
+    //Profile
+    rootProfile: {
+        maxWidth: 345,
+        marginTop:80,
+        marginLeft:50
+    },
+    mediaProfile: {
+        height: 0,
+        paddingTop: '90%', // 16:9
+    },
+    cardGridProfile:{
+        paddingTop:'20px 0px'
+    },
+    favorite_pickuplinesProfile:{
+        maxWidth:275
+    },
+    listProfile:{
+        marginTop:100
     }
 }))
 export default useStyles

@@ -74,7 +74,7 @@
         "console"
       ]
     },
-    "D:\\Web3-PickupLines-DjangoReact\\PickupLines\\contracts\\PickupLines.sol": {
+    "D:\\Web3-PickupLines-DjangoReact\\PickupLines\\frontend\\contracts\\PickupLines.sol": {
       "lastModificationDate": 1681232338093,
       "contentHash": "c3da8a3bd7ef1c33be427918676c1a8b",
       "sourceName": "contracts/PickupLines.sol",
@@ -112,7 +112,7 @@
         "PickupLinesFactory"
       ]
     },
-    "D:\\Web3-PickupLines-DjangoReact\\PickupLines\\node_modules\\hardhat\\console.sol": {
+    "D:\\Web3-PickupLines-DjangoReact\\PickupLines\\frontend\\node_modules\\hardhat\\console.sol": {
       "lastModificationDate": 1681232640710,
       "contentHash": "4ff3cd2f6272c9a6516e9ee4f2b967d3",
       "sourceName": "hardhat/console.sol",

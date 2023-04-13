@@ -42,7 +42,6 @@ import useStyles from '../styles.js'
 
 //?PickupLine
 const PickupLine = () => {
-
     const [lineDescription,setLineDescription] = useState("")
     const [allPickUps,setAllPickUps] = useState([])
     const [isLoading,setIsLoading] = useState(false)

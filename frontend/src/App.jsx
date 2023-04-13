@@ -39,8 +39,11 @@ import { shadows } from '@mui/system';
 import {Link} from 'react-router-dom'
 
 
-//!Components
+//!Custom Components
 import CardPickUp from './components/CardPickUp'
+import Navbar from './routes/NavbarPickup.jsx'
+
+
 
 
 //!Third Party Package
@@ -64,7 +67,6 @@ import pickup_lines_factory from "../contracts/pickup_lines_factory.js"
 import pickup_lines from "../contracts/pickup_lines.js"
 
 
-
 //?App
 function App() {
   //State variable to store the account connected with the wallet
@@ -83,8 +85,8 @@ function App() {
 
   const paginatedItems = deployedPickups.slice(startIndex, endIndex); // Array of items for the current page
 
-
-    //*connectWallet
+  
+    //*connectWallet    
     //Function to connect the wallet
     const connectWallet = async() => {
       try{
@@ -102,37 +104,39 @@ function App() {
       catch(err){
           console.log(err)
       }
-    }
+  }
 
 
     //*checkIfWalletIsConnected
     //Function to the check if the wallet is connected to the app
-    const checkIfWalletIsConnected = async() => {
-      try{
-          const { ethereum } = window
-          if(!ethereum){
-              alert("Make sure you have metamask")
-              return
-          }
-          else{
-              console.log('We have the ethereum object')
-      }
+      const checkIfWalletIsConnected = async() => {
+        try{
+            const { ethereum } = window
+            if(!ethereum){
+                alert("Make sure you have metamask")
+                return
+            }
+            else{
+                console.log('We have the ethereum object')
+        }
 
-      const accounts = await ethereum.request({ method: "eth_accounts" })
-      if(accounts.length !== 0){
-          const account = accounts[0]
-          console.log('Found an authorized account ', account)
-          setCurrentAccount(account)
-      }
-      else{
-          console.log('No authorized account found')
-      }
+        const accounts = await ethereum.request({ method: "eth_accounts" })
+        if(accounts.length !== 0){
+            const account = accounts[0]
+            console.log('Found an authorized account ', account)
+            setCurrentAccount(account)
+        }
+        else{
+            console.log('Your metamask account not login to this site,please login if you want to use this site properly')
+            toast.error('No authorized account found')
+        }
 
-      }
-      catch(err){
-          console.log(err)
-      }
-    }
+        }
+        catch(err){
+            console.log(err)
+        }
+  }
+
 
 
     //*handlePageChange
@@ -244,13 +248,13 @@ function App() {
     //?useEffect
     //React hook to check for wallet connection when the app is mounted
     useEffect(()=>{
-      notify()
-      checkIfWalletIsConnected()
       renderPickups()
+      checkIfWalletIsConnected()
       renderDeployedPickupsCount()
     },[])
-
-    //?useStyles
+    
+    
+    //useStyles
     const classes = useStyles()
 
 
@@ -259,63 +263,50 @@ function App() {
   return(
       <>
         <CssBaseline/>
-          <AppBar position="relative" className={classes.navbar}>
-            <Toolbar>
-              <Link to="/" style={{textDecoration:'none'}}>
-                <Avatar 
-                  className={classes.avatar} 
-                  src="https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?ixlib=rb-4.0.3ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074q=80">
-                </Avatar>
-              </Link>
-              <Typography variant="h6">PickUpLines</Typography>
-
-              <Link to="/profile" style={{textDecoration:'none'}}>
-                <Button variant="outlined" startIcon={<PersonIcon/>} className={classes.create_pickup}>
-                  Profile
-                </Button>
-              </Link>
-
-              <Button onClick={connectWallet} variant="outlined" className={classes.connect_metamask} disabled={currentAccount != '' ? true : false}>Connect Metamask</Button>
-            </Toolbar>
-          </AppBar>
-
-
+        <Navbar connectWallet={connectWallet} checkIfWalletIsConnected={checkIfWalletIsConnected} currentAccount={currentAccount}/>
           <Container className={classes.cardGrid} maxWidth="md">
-            {
-              paginatedItems?.length > 0 ?
-                ( 
-                  <>
-                    <Grid container spacing={4}>
-                    {paginatedItems.map((pickupline,index)=>(
-                      <CardPickUp address_author_timestamp={{address:pickupline[0],author:pickupline[1],timestamp:pickupline[2]}}  key={index}/>
-                    ))}
-                  </Grid>
-                  <ReactPaginate
-                      pageCount={endIndex < pickuplinesCount ? pickuplinesCount/3 : ''} // Total number of pages
-                      pageRangeDisplayed={3} // Number of pages to display in the pagination
-                      marginPagesDisplayed={2} // Number of pages to display before and after the current page
-                      onPageChange={handlePageChange} // Callback function to handle page changes
-                      containerClassName={'pagination'} // CSS class for the pagination container
-                      activeClassName={'active'} 
-                      disabled={true}
-                    />
-                  </>
-                )
-              : (<>
-                    <Box className={classes.cartMessageRoot} sx={{boxShadow:3}}>
-                      <Typography className={classes.cartMessageTitle} variant="h6">Not Found Last Hours Pickups Lines</Typography>
-                    </Box>
-                  </>
-                )
-            }
+              {
+                paginatedItems?.length > 0 ?
+                  ( 
+                    <>
+                      <Grid container spacing={4}>
+                      {paginatedItems.map((pickupline,index)=>(
+                        <CardPickUp address_author_timestamp={{address:pickupline[0],author:pickupline[1],timestamp:pickupline[2]}}  key={index}/>
+                      ))}
+                    </Grid>
+                    <ReactPaginate
+                        pageCount={endIndex < pickuplinesCount ? pickuplinesCount/3 : ''} // Total number of pages
+                        pageRangeDisplayed={3} // Number of pages to display in the pagination
+                        marginPagesDisplayed={2} // Number of pages to display before and after the current page
+                        onPageChange={handlePageChange} // Callback function to handle page changes
+                        containerClassName={'pagination'} // CSS class for the pagination container
+                        activeClassName={'active'} 
+                        disabled={true}
+                      />
+                    </>
+                  )
+                : (<>
+                      <Box className={classes.cartMessageRoot} sx={{boxShadow:3}}>
+                        <Typography className={classes.cartMessageTitle} variant="h6">Not Found Last Hours Pickups Lines</Typography>
+                      </Box>
+                    </>
+                  )
+              }
 
 
               <div>
                   <button onClick={notify}>Notify!</button>
-                  <Button variant="contained" style={{marginLeft:'646px',marginTop:'10px',textTransform:'capitalize'}} sx={{boxShadow:3}} onClick={createPickupLinesFactory}>
-                    Create PickupLines Factory
-                  </Button>
-                  <ToastContainer/>
+                  {
+                    currentAccount !== "" ? (
+                      <Button variant="contained" style={{marginLeft:'646px',marginTop:'10px',textTransform:'capitalize'}} sx={{boxShadow:3}} onClick={createPickupLinesFactory}>
+                        Create PickupLines Factory
+                      </Button>
+                    )
+                    :
+                    (
+                      <ToastContainer/>
+                    )
+                  }
               </div>
           </Container>
   </>
