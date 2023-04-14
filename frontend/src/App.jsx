@@ -43,6 +43,7 @@ import {Link} from 'react-router-dom'
 import CardPickUp from './components/CardPickUp'
 import Navbar from './routes/NavbarPickup.jsx'
 
+import PickupLogOut from "./routes/MetamaskLogOut.jsx"
 
 
 
@@ -97,8 +98,7 @@ function App() {
           }
           else{
               const accounts = await ethereum.request({method:'eth_requestAccounts'})
-              console.log('Connected ', accounts[0])
-              setCurrentAccount(accounts[0])
+              toast.success('Successfully Connect Account')
           }
           }
       catch(err){
@@ -174,6 +174,8 @@ function App() {
       try{
         if(typeof window !== "undefined" && typeof window.ethereum !== "undefined"){
           const account = await web3.eth.getAccounts()
+
+          console.log('Window ethereum value ', window.ethereum)
           // console.log('Account List ', account)
 
           // const contract_pickuplines_factory = new web3.eth.Contract(PickupLinesFactory.abi,"0x5FbDB2315678afecb367f032d93F642f64180aa3")
@@ -263,6 +265,12 @@ function App() {
   return(
       <>
         <CssBaseline/>
+        <PickupLogOut connectWallet={connectWallet} 
+          checkIfWalletIsConnected={checkIfWalletIsConnected}
+          currentAccount={currentAccount}
+          setCurrentAccount={setCurrentAccount}/>
+
+          
         <Navbar connectWallet={connectWallet} checkIfWalletIsConnected={checkIfWalletIsConnected} currentAccount={currentAccount}/>
           <Container className={classes.cardGrid} maxWidth="md">
               {
