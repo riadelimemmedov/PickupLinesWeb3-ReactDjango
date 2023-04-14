@@ -39,17 +39,18 @@ const Navbar = ({connectWallet,checkIfWalletIsConnected,currentAccount}) => {
                     </Link>
                     <Typography variant="h6">PickUpLines</Typography>
 
-                    <Link to="/profile" style={{textDecoration:'none',marginLeft:'25px'}}>
-                        <Button variant="outlined" startIcon={<PersonIcon/>} className={classes.create_pickup}>
-                        Profile
-                        </Button>
-                    </Link>
-
                     {
                         currentAccount !== "" ? (
-                            <div style={{marginLeft:'20px'}}>
-                                Already Logged In
-                            </div>
+                            <>
+                                <Link to="/profile" style={{textDecoration:'none',marginLeft:'25px'}}>
+                                    <Button variant="outlined" startIcon={<PersonIcon/>} className={classes.create_pickup}>
+                                    Profile
+                                    </Button>
+                                </Link>
+                                <div style={{marginLeft:'20px'}}>
+                                    Already Logged In
+                                </div>
+                            </>
                         )
                         :(
                             <Button onClick={connectWallet} variant="outlined" className={classes.connect_metamask} disabled={currentAccount != '' ? true : false}>Connect Metamask</Button>
