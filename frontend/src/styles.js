@@ -82,7 +82,13 @@ const useStyles = makeStyles((theme) => ({
     },
     mediaProfile: {
         height: 0,
-        paddingTop: '90%', // 16:9
+        paddingTop: '90%',
+         // 16:9
+    },
+    userPickupLines:{
+        paddingTop:'500px',
+        backgroundSize:'100%',
+        borderRadius:'10px',
     },
     cardGridProfile:{
         paddingTop:'20px 0px'
