@@ -10,12 +10,11 @@ import 'react-toastify/dist/ReactToastify.css';
 //!Web3
 import Web3 from 'web3';
 
+import Navbar from "../components/NavbarPickup";
 
 
 //?PickupLogOut
 const PickupLogOut = ({connectWallet,checkIfWalletIsConnected,currentAccountl,setCurrentAccount}) => {
-    const [web3, setWeb3] = useState(null);
-    const [accounts, setAccounts] = useState([]);
 
     useEffect(() => {
         async function init() {
@@ -40,8 +39,14 @@ const PickupLogOut = ({connectWallet,checkIfWalletIsConnected,currentAccountl,se
         // Check if user has disconnected their account
         console.log('Handled account ', newAccounts)
         if(newAccounts.length !== 0){
-            setCurrentAccount(newAccounts)//If user logged in first time metamask account set account key to App.jsx statet and update state value
-            toast.success('Successfully Connect Account')
+            toast.promise(
+                connectWallet(),
+                {
+                    pending:'Logged In Plese Wait One Minute...',
+                    success: 'Logged Successfully To Metamask',
+                    error:'When you are Logged In Occur Error',
+                }
+            ).finally(()=>console.log('Finish Process'))
 
         }
         else if (newAccounts.length === 0) {

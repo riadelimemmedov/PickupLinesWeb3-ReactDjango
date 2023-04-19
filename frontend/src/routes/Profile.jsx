@@ -1,3 +1,4 @@
+
 //!React
 import React from 'react';
 
@@ -15,8 +16,18 @@ import Box from '@mui/material/Box';
 import { shadows } from '@mui/system';
 
 
+
+//!Third Party Package
+import { ToastContainer, toast } from 'react-toastify';
+import ReactPaginate from 'react-paginate';
+
+
+//!React Router
+import {Link} from 'react-router-dom'
+
+
 //!Custom Components
-import Navbar from './NavbarPickup'
+import Navbar from '../components/NavbarPickup.jsx'
 
 
 //!useStyles
@@ -25,6 +36,10 @@ import useStyles from "../styles"
 
 //?UserProfileCard
 const UserProfileCard = () => {
+
+    const handlePageChange = () => {
+
+    }
 
     //classes
     const classes = useStyles();
@@ -35,7 +50,7 @@ const UserProfileCard = () => {
                 <Box sx={{flexGrow:1}}>
                     <Grid container spacing={2} item xs={12}>
                             <Grid item xs={4}>
-                                <Card className={classes.rootProfile} style={{width:'100%',marginLeft:'150px'}} sx={{boxShadow:3}}>
+                                <Card className={classes.rootProfile} style={{width:'100%',marginLeft:'30px',height:'472px'}} sx={{boxShadow:3}}>
                                     <CardMedia
                                         className={classes.mediaProfile}
                                         image="https://api.dicebear.com/6.x/avataaars/svg?seed=Garfield=$0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
@@ -59,7 +74,7 @@ const UserProfileCard = () => {
                                 </Card>
                             </Grid>
                             <Grid item xs={4}>
-                                <Card style={{ width: '100%', margin: 'auto', marginTop: '64px' }} sx={{boxShadow:3}}>
+                                <Card style={{ width: '100%', margin: 'auto', marginTop: '64px'}} sx={{boxShadow:3}}>
                                     <CardContent>
                                     <Typography variant="h6">Account Details</Typography>
                                     <form>
@@ -75,27 +90,33 @@ const UserProfileCard = () => {
                                     </CardContent>
                                 </Card>
                             </Grid>
+
+
                             <Grid item xs={4}>
-                                <Card style={{ width:'100%',height:'600px',marginTop:'64px' }}>
-                                        <CardMedia
-                                            className={classes.mediaProfile}
-                                            image="https://api.dicebear.com/6.x/avataaars/svg?seed=Garfield=$0x3C44CdDdB6a900fa2b585dd299e03d12F"
-                                            title="green iguana"
-                                            />
+                                <Card style={{ width:'100%',height:'488px',marginTop:'64px'}}>
                                         <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div">
-                                            Lizard
-                                        </Typography>
-                                        <Typography variant="body2" color="primary">
-                                            Lizards are a widespread group of squamate reptiles, with over 6,000
-                                            species, ranging across all continents except Antarctica
-                                        </Typography>
+                                            <Typography gutterBottom variant="h6" component="div">
+                                                Username Database PickupsLines
+                                            </Typography>
                                         </CardContent>
-                                        <CardActions>
-                                        <Button size="small">Share</Button>
-                                        <Button size="small">Learn More</Button>
-                                        </CardActions>
+                                        <Link to="/">
+                                            <CardMedia
+                                            className={classes.userPickupLines}
+                                            image="https://api.dicebear.com/5.x/thumbs/svg?seed=0xa16E02E87b7454126E5E10d957A927A7F5B5d2be"
+                                            title="pickup image"
+                                            />
+                                        </Link>
                                     </Card>
+                            
+                                    <ReactPaginate
+                                        pageCount={888} // Total number of pages
+                                        pageRangeDisplayed={3} // Number of pages to display in the pagination
+                                        marginPagesDisplayed={2} // Number of pages to display before and after the current page
+                                        onPageChange={handlePageChange} // Callback function to handle page changes
+                                        containerClassName={'pagination'} // CSS class for the pagination container
+                                        activeClassName={'active'} 
+                                        disabled={true}
+                                    />
                             </Grid>
                     </Grid>
             </Box>

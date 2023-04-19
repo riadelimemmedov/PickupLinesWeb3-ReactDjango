@@ -48,6 +48,7 @@ media
 # C extensions
 *.so
 note.txt
+bookmark.txt
 
 # Distribution / packaging
 .Python

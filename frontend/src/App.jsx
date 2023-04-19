@@ -28,7 +28,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {PhotoCamera,PostAdd} from '@material-ui/icons'
+import {PhotoCamera,PostAdd, SettingsOutlined} from '@material-ui/icons'
 import PersonIcon from '@mui/icons-material/Person';
 import MuiAlert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
@@ -41,7 +41,7 @@ import {Link} from 'react-router-dom'
 
 //!Custom Components
 import CardPickUp from './components/CardPickUp'
-import Navbar from './routes/NavbarPickup.jsx'
+import Navbar from './components/NavbarPickup.jsx'
 
 import PickupLogOut from "./routes/MetamaskLogOut.jsx"
 
@@ -98,7 +98,12 @@ function App() {
           }
           else{
               const accounts = await ethereum.request({method:'eth_requestAccounts'})
-              toast.success('Successfully Connect Account')
+              // await fetch('https://jsonplaceholder.typicode.com/todos/1')//Testing for Django Authentication
+              //     .then(response => response.json())
+              //     .then(json => console.log(json))
+              setTimeout(()=>{
+                setCurrentAccount(accounts[0])
+              },3000)
           }
           }
       catch(err){
@@ -183,7 +188,7 @@ function App() {
           // // console.log('Adress PickupLinesFactory ', contract_pickuplines_factory.options.address)
           // console.log('Methods PickupLinesFactory ', contract_pickuplines_factory.methods)
 
-          const contract_pickuplines = await pickup_lines_factory.methods.createPickup().send({from:account[2]})
+          const contract_pickuplines = await pickup_lines_factory.methods.createPickup().send({from:account[2]})//Returned data save to Pickup Database
           console.log('Create PickupLines succsesfully ', contract_pickuplines)
           
           
@@ -204,7 +209,7 @@ function App() {
 
           const pickuplines = new web3.eth.Contract(PickupLines.abi,pickUpLineAddress)
           console.log('Pickuplines Createad Succsesfully', pickuplines)
-          console.log('Adress Pickuplines ', pickuplines.options.address)
+          console.log('Adress Pickuplines ', pickuplines.options.address)//important this are for backend
           console.log('Methods Pickuplines ', pickuplines.methods)
           
 
@@ -223,6 +228,8 @@ function App() {
 
           const deployed_list_pickups = await pickup_lines_factory.methods.getDeployedPickup().call()
           const created_date_list_pickups = await pickup_lines_factory.methods.getCreatedDatePickup().call()
+          console.log('Bunedi  ', created_date_list_pickups)
+
           const pickups_author = await pickup_lines_factory.methods.getAuthorPickup().call()
 
           const deployed_pickups = deployed_list_pickups.map((el,index)=>[el,pickups_author[index],created_date_list_pickups[index]])
@@ -271,7 +278,7 @@ function App() {
           setCurrentAccount={setCurrentAccount}/>
 
           
-        <Navbar connectWallet={connectWallet} checkIfWalletIsConnected={checkIfWalletIsConnected} currentAccount={currentAccount}/>
+        <Navbar connectWallet={connectWallet} checkIfWalletIsConnected={checkIfWalletIsConnected} currentAccount={currentAccount} setCurrentAccount={setCurrentAccount}/>
           <Container className={classes.cardGrid} maxWidth="md">
               {
                 paginatedItems?.length > 0 ?

@@ -21,9 +21,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import useStyles from "../styles"
 
 
-//?Navbar
-const Navbar = ({connectWallet,checkIfWalletIsConnected,currentAccount}) => {
+import { wallet_requestPermissions } from '@metamask/detect-provider';
+import { ethers } from 'ethers';
+import web3 from "../../contracts/web3.js"
 
+
+
+
+//?Navbar
+const Navbar = ({connectWallet,checkIfWalletIsConnected,currentAccount,setCurrentAccount}) => {
     //useStyles
     const classes = useStyles()
 

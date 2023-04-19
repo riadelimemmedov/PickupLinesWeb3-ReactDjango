@@ -73,7 +73,7 @@ contract PickupLines{
 
 
     //Function for adding a new line to the contract
-    function newLine(string memory _line) public{
+    function newLine(string memory _line) public{//write test this function//
         //Adding a new Pickup to our blockchain
         totalLines+=1;
         pickups.push(Pickup(msg.sender,_line,block.timestamp));
@@ -82,7 +82,7 @@ contract PickupLines{
     }
 
     //Function to get all the lines submitted to the contract
-    function getTotalLines() public view returns(uint256){
+    function getTotalLines() public view returns(uint256){// write test for this function //
         console.log('We have %s total PickUp ', totalLines);
         return totalLines;
     }
