@@ -4,3 +4,4 @@ from enum import Enum
 class AppName(Enum):
     ADMIN = "ADMIN"
     USER = "USER"
+    PICKUPLINES = "PICKUPLINES"
