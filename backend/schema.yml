@@ -1,0 +1,27 @@
+openapi: 3.0.3
+info:
+  title: Django Rest Api PickupLines Project
+  version: 1.0.0
+  description: This project purpose creating web3 api for custom purpose
+paths:
+  /api/users/:
+    get:
+      operationId: api_users_retrieve
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
