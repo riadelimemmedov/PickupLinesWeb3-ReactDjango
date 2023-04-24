@@ -28,7 +28,7 @@ from abstract.constants import AppName
 
 
 #!Thirty Part Packages
-# from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerSplitView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerSplitView
 
 
 # *Admin Site Configuration
@@ -60,11 +60,11 @@ else:
                 f"{settings.APP_NAME.lower()}_api",
             ),
         ),
-        # path("api/schema", SpectacularAPIView.as_view(), name="schema_api"),
-        # path(
-        #     "api/schema/docs",
-        #     SpectacularSwaggerSplitView.as_view(url_name="schema_api"),
-        # ),
+        path("api/schema", SpectacularAPIView.as_view(), name="schema_api"),
+        path(
+            "api/schema/docs",
+            SpectacularSwaggerSplitView.as_view(url_name="schema_api"),
+        ),
     ]
 
     handler400 = "config.handlers.handler400"
