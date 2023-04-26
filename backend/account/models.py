@@ -105,6 +105,12 @@ class Account(AbstractBaseUser, PermissionsMixin):
         blank=True,
         unique=True,
     )
+    account_picture = models.ImageField(
+        _("account picture"),
+        upload_to=get_profile_photo_upload_path,
+        validators=[FileExtensionValidator(["png", "jpg", "jpeg"])],
+        blank=True,
+    )
 
     # User permissions field
     is_admin = models.BooleanField(
@@ -210,31 +216,3 @@ class Account(AbstractBaseUser, PermissionsMixin):
     # *has_module_perms
     def has_module_perms(self, add_label):
         return True
-
-
-#!Profile
-class Profile(models.Model):
-    account = models.OneToOneField(
-        Account, verbose_name=_("account"), on_delete=models.CASCADE
-    )
-    profile_picture = models.ImageField(
-        _("profile picture"),
-        upload_to=get_profile_photo_upload_path,
-        validators=[FileExtensionValidator(["png", "jpg", "jpeg"])],
-        blank=True,
-    )
-    website_links = models.URLField(_("website links"), default="")
-    city = models.CharField(_("city"), max_length=20)
-    state = models.CharField(_("state"), max_length=20)
-    country = models.CharField(_("country"), max_length=20)
-
-    class Meta:
-        verbose_name = "User Profile"
-        verbose_name_plural = "User Profiles"
-
-    def __str__(self) -> str:
-        return str(self.account.first_name)
-
-    @property
-    def get_full_address(self) -> str:
-        return f"{self.city} -- {self.country}"
