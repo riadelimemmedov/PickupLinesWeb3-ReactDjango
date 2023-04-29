@@ -52,6 +52,7 @@ class AccountAdmin(UserAdmin):
                     "is_superuser",
                     "groups",
                     "user_permissions",
+                    "role",
                 )
             },
         ),
@@ -69,6 +70,7 @@ class AccountAdmin(UserAdmin):
                     "phone",
                     "password1",
                     "password2",
+                    "role",
                 ),
             },
         ),
@@ -80,6 +82,7 @@ class AccountAdmin(UserAdmin):
         "is_staff",
         "date_joined",
         "last_login",
+        "role",
         "thumbnail",
     ]
     list_filter = [
