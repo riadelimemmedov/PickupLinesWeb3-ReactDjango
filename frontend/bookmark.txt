@@ -744,3 +744,18 @@ Now, when a new user logs in for the first time, a modal window opens in the mid
 <img src="https://i.imgur.com/X2F0u27.png" height=400>
 
 When the modal is closed, the user now has a collection with 5 bookmarks contained within, giving the user opportunity to better see how the app works, before they need to start creating their own bookmarks.
+
+
+
+
+    # @permission_classes([IsAdminUser, IsAuthenticated, AdminRequired, ProfileRequired])
+    def create(self, request):
+        serializer = TransactionSerializer(data=request.data)
+        if serializer.is_valid():
+            transaction_obj = Transaction.objects.create(**serializer.validated_data)
+            return Response(
+                TransactionSerializer(transaction_obj).data,
+                status=status.HTTP_201_CREATED,
+            )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
