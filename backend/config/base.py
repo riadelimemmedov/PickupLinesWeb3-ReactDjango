@@ -1,8 +1,7 @@
-from pathlib import Path
 import os
+from pathlib import Path
+
 from decouple import config
-
-
 from django.utils.translation import gettext_lazy as _
 
 #!Your everywhere service name
@@ -14,11 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 #!App Name
-APP_NAME = "ADMIN"  # Default ADMIN,USER
-
-
-#!AUTH_USER_MODEL
-AUTH_USER_MODEL = 'account.Account'
+APP_NAME = "ADMIN"  # Default ADMIN,ACCOUNT_PROFILE,TRANSACTION
 
 
 #!SECURITY WARNING: keep the secret key used in production secret!
@@ -51,22 +46,31 @@ DEFAULT_APPS = [
 ]
 
 #!Third Part App
-THIRD_PARTY_APPS = ["rest_framework",
-                    "django_cleanup",
-                    'django_filters',
-                    'rest_framework.authtoken',
-                    'djoser',
-                    'corsheaders',  
+THIRD_PARTY_APPS = [
+    "rest_framework",
+    "django_cleanup",
+    "django_filters",
+    "rest_framework.authtoken",
+    "djoser",
+    "corsheaders",
+    "drf_spectacular",
 ]
 
 #!Created Apps
 CREATED_APPS = [
-    'abstract',
-    'account'
+    "abstract",
+    "account",
+    "api.account_profile",
+    "api.pickuplines",
+    "api.transaction",
 ]
 
 #!Installed Apps
 INSTALLED_APPS = DEFAULT_APPS + CREATED_APPS + THIRD_PARTY_APPS
+
+
+#!AUTH_USER_MODEL
+AUTH_USER_MODEL = "account.Account"
 
 
 #!Middleware
@@ -84,7 +88,7 @@ MIDDLEWARE = [
 
 #!CORS_ALLOWED_ORIGINS
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:5173/",
+    "http://localhost:5173",
     "http://localhost:3000",
     "http://localhost:5000",
     "http://localhost:9000",
@@ -145,9 +149,6 @@ TEMPLATES = [
 #!Wsgi Application
 WSGI_APPLICATION = "config.wsgi.application"
 
-
-#!AUTH USER MODEL
-# AUTH_USER_MODEL = 'account.Account'
 
 #!Auth Password Validators
 AUTH_PASSWORD_VALIDATORS = [
@@ -225,18 +226,21 @@ JET_THEMES = [
     {"theme": "light-gray", "color": "#222", "title": "Light Gray"},
 ]
 
+
 #!Rest Framework
-# REST_FRAMEWORK = {
-#     # "TEST_REQUEST_DEFAULT_FORMAT": "json",
-#     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-# }
+REST_FRAMEWORK = {
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
 
 
 #!SPECTACULAR_SETTINGS
-# SPECTACULAR_SETTINGS = {
-#     "TITLE": "Django DRF Ecommerce",
-#     "DESCRIPTION": "This project purpose creating ecommerce api for business company",
-#     "VERSION": "1.0.0",
-#     "SERVE_INCLUDE_SCHEMA": False,
-#     # OTHER SETTINGS
-# }
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Django Rest Api PickupLines Project",
+    "DESCRIPTION": "This project purpose creating web3 api for custom purpose",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    # OTHER SETTINGS
+}
+
+#!Scheme Docs Url EndPoint => http://127.0.0.1:8000/api/schema/docs
