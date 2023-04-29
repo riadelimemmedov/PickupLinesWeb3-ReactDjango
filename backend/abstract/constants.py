@@ -5,5 +5,5 @@ from enum import Enum
 #!AppName
 class AppName(Enum):
     ADMIN = "ADMIN"
-    USER = "USER"
-    PICKUPLINES = "PICKUPLINES"
+    ACCOUNT_PROFILE = "ACCOUNT_PROFILE"
+    TRANSACTION = "TRANSACTION"
