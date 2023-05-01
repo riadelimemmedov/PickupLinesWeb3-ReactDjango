@@ -86,6 +86,20 @@ function App() {
 
   const paginatedItems = deployedPickups.slice(startIndex, endIndex); // Array of items for the current page
 
+
+  //!saveTransaction
+  const saveTransaction = (pickup_object) => {
+      const path = 'http://127.0.0.1:8000/api/transaction/create'
+      const requestOptions = {
+          method:'POST',
+          headers:{'Content-Type': 'application/json'},
+          body:JSON.stringify({pickup_object})
+      }
+
+      fetch(path,requestOptions)
+        .then((response) => response.json())
+        .then((data) => console.log('Data send to backend api successfully ', data))
+    }
   
     //*connectWallet    
     //Function to connect the wallet
@@ -143,7 +157,6 @@ function App() {
   }
 
 
-
     //*handlePageChange
     const handlePageChange = ({ selected }) => {
       setCurrentPage(selected);
@@ -188,7 +201,9 @@ function App() {
           // // console.log('Adress PickupLinesFactory ', contract_pickuplines_factory.options.address)
           // console.log('Methods PickupLinesFactory ', contract_pickuplines_factory.methods)
 
-          const contract_pickuplines = await pickup_lines_factory.methods.createPickup().send({from:account[2]})//Returned data save to Pickup Database
+          const contract_pickuplines = await pickup_lines_factory.methods.createPickup().send({from:account[2]})
+          //Returned data save to Pickup Database,I Need this for save my to Pickuplines Table
+          saveTransaction(contract_pickuplines)
           console.log('Create PickupLines succsesfully ', contract_pickuplines)
           
           
@@ -247,6 +262,7 @@ function App() {
         alert('When create pickups lines occur something')
       }
     }
+
 
 
     //*notify
