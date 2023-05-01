@@ -29,7 +29,7 @@ urlpatterns = [
         name="transaction-create",
     ),
     path(
-        "block/create",
+        "block/create/<int:block_number>",
         BlockCreateViewSet.as_view({"post": "create"}),
         name="block-create",
     ),
