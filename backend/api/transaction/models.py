@@ -25,13 +25,15 @@ class ActiveQueryset(models.QuerySet):
 
 #!Transaction
 class Transaction(SoftDeletionModel):
-    block_hash = models.CharField(_("block hash"), max_length=50)
-    from_user = models.CharField(_("from user"), max_length=50)
-    to_user = models.CharField(_("to user"), max_length=50)
-    transaction_hash = models.CharField(_("transaction hash"), max_length=50)
-    transaction_index = models.CharField(_("transaction index"), max_length=50)
+    block_hash = models.CharField(_("block hash"), max_length=100, unique=True)
+    from_user = models.CharField(_("from user"), max_length=100)
+    to_user = models.CharField(_("to user"), max_length=100)
+    transaction_hash = models.CharField(
+        _("transaction hash"), unique=True, max_length=100
+    )
+    transaction_index = models.CharField(_("transaction index"), max_length=100)
     is_complete = models.BooleanField(_("is complete transaction"), default=False)
-    gas_fees = models.CharField(_("gas fees"), max_length=50)
+    gas_fees = models.CharField(_("gas fees"), max_length=100)
 
     # objects
     objects = ActiveQueryset.as_manager()
@@ -46,8 +48,8 @@ class Transaction(SoftDeletionModel):
 
 #!Block
 class Block(models.Model):
-    block_number = models.CharField(_("block number"), max_length=50)
-    block_miner = models.CharField(_("block miner"), max_length=50)
+    block_number = models.CharField(_("block number"), max_length=100)
+    block_miner = models.CharField(_("block miner"), max_length=100)
     is_complete = models.BooleanField(_("is complete"), default=False)
     time_stamp = models.DateTimeField(_("time stamp"), auto_now_add=True)
 
