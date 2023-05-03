@@ -18,3 +18,13 @@ class TransactionFactory(factory.django.DjangoModelFactory):
     transaction_index = "5"
     is_complete = False
     gas_fees = "649992"
+
+
+#!BlockFactory
+class BlockFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Block
+
+    block_number = "51"
+    block_miner = "0xe0a2bd4258d2768837baa26a28fe71dc079f84c7"
+    is_complete = False
