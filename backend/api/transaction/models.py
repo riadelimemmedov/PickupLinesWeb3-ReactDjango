@@ -48,7 +48,7 @@ class Transaction(SoftDeletionModel):
 
 #!Block
 class Block(models.Model):
-    block_number = models.CharField(_("block number"), max_length=100)
+    block_number = models.CharField(_("block number"), unique=True, max_length=100)
     block_miner = models.CharField(_("block miner"), max_length=100)
     is_complete = models.BooleanField(_("is complete"), default=False)
     time_stamp = models.DateTimeField(_("time stamp"), auto_now_add=True)
