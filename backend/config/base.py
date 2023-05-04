@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 #!App Name
-APP_NAME = "ADMIN"  # Default ADMIN,ACCOUNT_PROFILE,TRANSACTION
+APP_NAME = "TRANSACTION"  # Default ADMIN,ACCOUNT_PROFILE,TRANSACTION
 
 
 #!SECURITY WARNING: keep the secret key used in production secret!
@@ -88,7 +88,7 @@ MIDDLEWARE = [
 
 #!CORS_ALLOWED_ORIGINS
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
+    "http://127.0.0.1:5173",
     "http://localhost:3000",
     "http://localhost:5000",
     "http://localhost:9000",
