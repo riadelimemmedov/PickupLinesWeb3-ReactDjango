@@ -4,9 +4,29 @@ info:
   version: 1.0.0
   description: This project purpose creating web3 api for custom purpose
 paths:
-  /api/users/:
+  /api/block/create/{block_number}:
+    post:
+      operationId: api_block_create_create
+      description: A Viewset for create Block
+      parameters:
+      - in: path
+        name: block_number
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          description: No response body
+  /api/blocks/:
     get:
-      operationId: api_users_retrieve
+      operationId: api_blocks_list
+      description: A Viewset for viewing all Block
       tags:
       - api
       security:
@@ -15,8 +35,163 @@ paths:
       - {}
       responses:
         '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Block'
+          description: ''
+  /api/blocks/{id}/:
+    get:
+      operationId: api_blocks_retrieve
+      description: A Viewset for viewing all Block
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Block.
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Block'
+          description: ''
+  /api/transaction/create:
+    post:
+      operationId: api_transaction_create_create
+      description: A Viewset for create Transaction
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
           description: No response body
+  /api/transactions/:
+    get:
+      operationId: api_transactions_list
+      description: A Viewset for viewing all Transaction
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+          description: ''
+  /api/transactions/{id}/:
+    get:
+      operationId: api_transactions_retrieve
+      description: A Viewset for viewing all Transaction
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Transaction.
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+          description: ''
 components:
+  schemas:
+    Block:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        block_number:
+          type: string
+          maxLength: 100
+        block_miner:
+          type: string
+          maxLength: 100
+        is_complete:
+          type: boolean
+        time_stamp:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - block_miner
+      - block_number
+      - id
+      - time_stamp
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        restored_at:
+          type: string
+          format: date-time
+          nullable: true
+        is_deleted:
+          type: boolean
+        block_hash:
+          type: string
+          maxLength: 100
+        from_user:
+          type: string
+          maxLength: 100
+        to_user:
+          type: string
+          maxLength: 100
+        transaction_hash:
+          type: string
+          maxLength: 100
+        transaction_index:
+          type: string
+          maxLength: 100
+        is_complete:
+          type: boolean
+          title: Is complete transaction
+        gas_fees:
+          type: string
+          maxLength: 100
+      required:
+      - block_hash
+      - from_user
+      - gas_fees
+      - id
+      - to_user
+      - transaction_hash
+      - transaction_index
   securitySchemes:
     basicAuth:
       type: http
