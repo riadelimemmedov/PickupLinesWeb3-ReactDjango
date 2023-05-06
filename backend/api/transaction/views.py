@@ -24,6 +24,7 @@ from account.permissions import AdminRequired, ProfileRequired
 # Third Party Packages
 import requests
 from decouple import config
+from drf_spectacular.utils import extend_schema
 
 # Create your views here.
 
@@ -48,6 +49,7 @@ class TransactionListRetrieveViewSet(viewsets.ViewSet):
     # Define the list method to retrieve a list of all Transaction objects
     # The method requires admin authentication and permissions
     @permission_classes([IsAdminUser, AdminRequired])
+    @extend_schema(responses=TransactionSerializer)
     def list(self, request):
         # Serialize the queryset and return the serialized data
         serializer = TransactionSerializer(self.queryset, many=True)
@@ -56,6 +58,7 @@ class TransactionListRetrieveViewSet(viewsets.ViewSet):
     # Define the retrieve method to retrieve a single Transaction object by its primary key
     # The method requires admin authentication and permissions
     @permission_classes([IsAdminUser, AdminRequired])
+    @extend_schema(responses=TransactionSerializer)
     def retrieve(self, request, pk=None):
         # Retrieve the Transaction object with the specified primary key
         transaction = get_object_or_404(self.queryset, pk=pk)
