@@ -14,22 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+#!Abstract
+from abstract.constants import AppName
+
 #!Django Modules
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
-
-
-#!Abstract
-from abstract.constants import AppName
-
 
 #!Thirty Part Packages
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerSplitView
-
 
 # *Admin Site Configuration
 admin.site.site_header = _("PickupLines Admin")  # login page
@@ -71,6 +68,11 @@ else:
     handler403 = "config.handlers.handler403"
     handler404 = "config.handlers.handler404"
     handler500 = "config.handlers.handler500"
+
+urlpatterns += [
+    path("api/v1/", include("djoser.urls")),
+    path("api/v1/", include("djoser.urls.authtoken")),
+]
 
 
 # *Settings Debug
