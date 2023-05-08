@@ -20,6 +20,7 @@ from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
     PermissionsMixin,
+    AbstractUser,
 )
 from django.core.validators import FileExtensionValidator, RegexValidator
 
@@ -32,7 +33,8 @@ from django.utils.translation import gettext_lazy as _
 
 #!MyAccountManager
 class MyAccountManager(BaseUserManager):
-    def _create_user(self, email, password, **extra_fields):
+    def _create_user(self, email, password, metamask_address, **extra_fields):
+        print("Metamask Adress Is Here ", metamask_address)
         if not email:
             raise ValueError("User must have an email address")
 
@@ -64,6 +66,12 @@ class MyAccountManager(BaseUserManager):
 
 #!Account
 class Account(AbstractBaseUser, PermissionsMixin):
+
+    # Account permission roles
+    ADMIN_ROLE_CODE = "ADMIN"
+    PROFILE_ROLE_CODE = "PROFILE"
+
+    USER_ROLES = ((ADMIN_ROLE_CODE, "ADMIN"), (PROFILE_ROLE_CODE, "PROFILE"))
 
     # User column fields
     email = models.EmailField(_("email"), max_length=100, unique=True)
@@ -112,6 +120,13 @@ class Account(AbstractBaseUser, PermissionsMixin):
         blank=True,
     )
 
+    metamask_address = models.CharField(
+        _("metamask address"),
+        max_length=100,
+        null=True,
+        unique=True,
+    )
+
     # User permissions field
     is_admin = models.BooleanField(
         _("admin status"),
@@ -135,6 +150,10 @@ class Account(AbstractBaseUser, PermissionsMixin):
         default=False,
         help_text=_("Designates whether the user is admin or not."),
     )
+    role = models.CharField(
+        _("user role"), max_length=10, choices=USER_ROLES, default="PROFILE"
+    )
+
     date_joined = models.DateTimeField(_("date joined"), auto_now_add=True)
     last_login = models.DateTimeField(_("last login"), auto_now_add=True)
     password_updated_date = models.DateTimeField(
@@ -148,6 +167,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
         "last_name",
         "username",
         "phone",
+        "metamask_address",
     ]  # this list in data macthes Account class one-by-one
 
     objects = MyAccountManager()
