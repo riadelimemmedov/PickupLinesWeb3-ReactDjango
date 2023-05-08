@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 #!App Name
-APP_NAME = "TRANSACTION"  # Default ADMIN,ACCOUNT_PROFILE,TRANSACTION
+APP_NAME = "ADMIN"  # Default ADMIN,ACCOUNT_PROFILE,TRANSACTION
 
 
 #!SECURITY WARNING: keep the secret key used in production secret!
@@ -124,6 +124,35 @@ CORS_ALLOW_METHODS = [
     "POST",
     "PUT",
 ]
+
+#!Djoser
+# DJOSER = {
+# "SERIALIZERS": {
+#     "user_create": "path.to.your.custom.UserCreateSerializer",
+#     "user": "path.to.your.custom.UserSerializer",
+#     "current_user": "path.to.your.custom.CurrentUserSerializer",
+# },
+# "PERMISSIONS": {
+#     "user_list": ["rest_framework.permissions.AllowAny"],
+#     "user": ["rest_framework.permissions.IsAuthenticated"],
+#     "user_delete": ["rest_framework.permissions.IsAdminUser"],
+# },
+# "TOKEN_MODEL": "path.to.your.custom.TokenModel",
+# "SEND_ACTIVATION_EMAIL": True,
+# "SEND_CONFIRMATION_EMAIL": True,
+# "ACTIVATION_URL": "activate/{uid}/{token}",
+# "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
+# "USERNAME_RESET_CONFIRM_URL": "username/reset/confirm/{uid}/{token}",
+# "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": ["http://localhost:3000/"],
+# }
+
+
+#!DJOSER
+DJOSER = {
+    "SERIALIZERS": {
+        "token_create": "backend.account.serializers.CustomTokenSerializer",
+    },
+}
 
 
 #!Root UrlConf
