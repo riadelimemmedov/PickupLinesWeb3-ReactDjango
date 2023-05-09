@@ -10,7 +10,7 @@
     "cleantruffle": "truffle networks --clean",
     "test": "mocha",
     "compile": "npx hardhat compile",
-    "runharthat": "npx hardhat run scripts/run.js",
+    "runhardhat": "npx hardhat run scripts/run.js",
     "deployhardhat": "npx hardhat run scripts/deploy.js --network localhost"
   },
   "dependencies": {
@@ -38,6 +38,7 @@
     "react-paginate": "^8.1.4",
     "react-router-dom": "^6.9.0",
     "react-toastify": "^9.1.1",
+    "react-transition-group": "^4.4.5",
     "web3": "^1.8.2"
   },
   "devDependencies": {
