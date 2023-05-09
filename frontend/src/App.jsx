@@ -42,9 +42,8 @@ import {Link} from 'react-router-dom'
 //!Custom Components
 import CardPickUp from './components/CardPickUp'
 import Navbar from './components/NavbarPickup.jsx'
-
 import PickupLogOut from "./routes/MetamaskLogOut.jsx"
-
+import LoginRegisterModal from './routes/LoginRegisterModal.jsx'
 
 
 //!Third Party Package
@@ -75,6 +74,7 @@ function App() {
   const [pickuplinesCount,setPickuplinesCount] = useState("")
   const [deployedPickups,getDeployedPickups] = useState([])
   const [currentPage, setCurrentPage] = useState(0);
+  const [isLoggedIn,setLoggedIn] = useState("")
 
   const [deployedContractAddress,setDeployedAddress] = useState("")
 
@@ -143,6 +143,7 @@ function App() {
         if(accounts.length !== 0){
             const account = accounts[0]
             console.log('Found an authorized account ', account)
+            setLoggedIn('True')
             setCurrentAccount(account)
         }
         else{
@@ -264,7 +265,6 @@ function App() {
     }
 
 
-
     //*notify
     const notify = () => toast.info(`Find ${pickuplinesCount} pickups`)
   
@@ -276,7 +276,23 @@ function App() {
       renderPickups()
       checkIfWalletIsConnected()
       renderDeployedPickupsCount()
+      connectWallet()
     },[])
+
+
+
+    useEffect(() => {
+      const handleUnload = () => {
+        localStorage.setItem('currentAccount', currentAccount);
+      };
+    
+      window.addEventListener('beforeunload', handleUnload);
+    
+      return () => {
+        window.removeEventListener('beforeunload', handleUnload);
+      };
+    }, [currentAccount]);
+    
     
     
     //useStyles
@@ -292,9 +308,19 @@ function App() {
           checkIfWalletIsConnected={checkIfWalletIsConnected}
           currentAccount={currentAccount}
           setCurrentAccount={setCurrentAccount}/>
-
           
         <Navbar connectWallet={connectWallet} checkIfWalletIsConnected={checkIfWalletIsConnected} currentAccount={currentAccount} setCurrentAccount={setCurrentAccount}/>
+          {
+            isLoggedIn=='True' ? (
+              <LoginRegisterModal/>
+            )
+            :
+            (
+              <p>Hi</p>
+            )
+          }
+
+
           <Container className={classes.cardGrid} maxWidth="md">
               {
                 paginatedItems?.length > 0 ?
