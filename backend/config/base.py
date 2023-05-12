@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 #!App Name
-APP_NAME = "ADMIN"  # Default ADMIN,ACCOUNT_PROFILE,TRANSACTION
+APP_NAME = "TRANSACTION"  # Default ADMIN,ACCOUNT_PROFILE,TRANSACTION
 
 
 #!SECURITY WARNING: keep the secret key used in production secret!
@@ -147,15 +147,33 @@ CORS_ALLOW_METHODS = [
 # }
 
 
-#!DJOSER
-DJOSER = {
-    "SERIALIZERS": {
-        "token_create": "backend.account.serializers.CustomTokenSerializer",
-    },
+#!DJOSER For Login Token Login
+# DJOSER = {
+#     "SERIALIZERS": {
+#         "token_create": "backend.account.serializers.CustomTokenSerializer",
+#     },
+#     "VIEWS": {
+#         "token_create": "backend.account.views.CustomTokenCreateSerializer",
+#     },
+# }
+
+
+#!AUTHENTICATION_BACKENDS
+AUTHENTICATION_BACKENDS = [
+    "backend.account.authenticationuser.CustomAuthBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+
+#!SPECTACULAR_SETTINGS
+SPECTACULAR_SETTINGS = {
+    "AUTHENTICATION_CLASSES": [
+        "djoser.views.TokenCreateView",
+        "drf_spectacular.contrib.authentication.DjoserAuth",
+    ],
 }
 
-
-# http://127.0.0.1:8000/api/v1/users/create/ => For register user
+# http://127.0.0.1:8000/api/v1/users/ => For register user
 # http://127.0.0.1:8000/api/v1/token/login => For login user
 
 #!Root UrlConf
