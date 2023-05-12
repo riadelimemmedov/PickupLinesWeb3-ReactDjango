@@ -25,6 +25,9 @@ from django.contrib import admin
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 
+
+from account.views import CustomTokenCreateSerializer
+
 #!Thirty Part Packages
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerSplitView
 
@@ -72,6 +75,9 @@ else:
 urlpatterns += [
     path("api/v1/", include("djoser.urls")),
     path("api/v1/", include("djoser.urls.authtoken")),
+    path(
+        "auth/token/login/", CustomTokenCreateSerializer.as_view(), name="token_login"
+    ),
 ]
 
 
